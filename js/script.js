@@ -10,5 +10,5 @@ document.addEventListener("mousemove", (e) => {
     // Recorta el texto con linterna pequeña
     const texto = document.getElementById("texto");
 
-    texto.style.clipPath = `circle(40px at ${e.clientX}px ${e.clientY}px)`;
+    texto.style.clipPath = `circle(80px at ${e.clientX}px ${e.clientY}px)`;
 });
