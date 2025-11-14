@@ -20,3 +20,14 @@ document.addEventListener('mousemove', (e) => {
 document.addEventListener('mouseleave', () => {
   texto.style.clipPath = 'circle(0px at 50% 50%)';
 });
+
+//  AL HACER CLICK: se apaga la linterna
+document.addEventListener("click", () => {
+    linternaActiva = false;
+
+    // Desaparece el degradado (queda fondo sólido oscuro)
+    document.body.style.background = "#d41010ff";
+
+    // Ocultar el texto por completo
+    texto.style.clipPath = "circle(0px at 50% 50%)";
+    });
