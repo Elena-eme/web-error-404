@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Fondo dinámico */
+    --x: 50%;
+    --y: 50%;
+    background: radial-gradient(circle at var(--x) var(--y),
+        #d81515,
+        #e99518,
+        #0c1a3d 80%
+    );
+    transition: background 0.15s ease-out;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#texto {
+    font-size: 5rem;
+    font-weight: bold;
+    color: white;
+
+    /* Oculto excepto donde pasa el cursor */
+    clip-path: circle(0px at 50% 50%);
+    transition: clip-path 0.05s linear;
+
+    /* Evita que se vea borroso o glitch */
+    position: absolute;
+    z-index: 2;
+    pointer-events: none; 
+}
