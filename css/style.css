@@ -24,15 +24,14 @@ body {
     font-weight: bold;
     color: white;
 
-    /* Oculto excepto donde pasa el cursor */
     clip-path: circle(0px at 50% 50%);
-    transition: clip-path 0.05s linear;
+    transition: clip-path 0.1s linear;
 
-    /* Evita que se vea borroso o glitch */
     position: relative;
     z-index: 2;
-    pointer-events: none; 
+    pointer-events: none;
 }
+
 
 .container {
     position: relative;

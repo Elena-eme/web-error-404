@@ -1,14 +1,22 @@
-document.addEventListener("mousemove", (e) => {
+const texto = document.getElementById('texto');
 
-    // Gradiente del fondo siguiendo el cursor
-    let x = (e.clientX / window.innerWidth) * 100;
-    let y = (e.clientY / window.innerHeight) * 100;
+document.addEventListener('mousemove', (e) => {
+  // porcentajes para el gradiente (coincidirán con el clip-path porque #texto ocupa 100% del viewport)
+  const xPercent = (e.clientX / window.innerWidth) * 100;
+  const yPercent = (e.clientY / window.innerHeight) * 100;
 
-    document.body.style.setProperty("--x", x + "%");
-    document.body.style.setProperty("--y", y + "%");
+  // actualizamos variables CSS del body (ahí está el gradiente)
+  document.body.style.setProperty('--x', `${xPercent}%`);
+  document.body.style.setProperty('--y', `${yPercent}%`);
 
-    // Linterna en el centro del degradado, NO en el cursor
-    const texto = document.getElementById("texto");
+  // radio de la linterna (puedes usar px, vw, etc). Ajusta según quieras más/menos foco.
+  const radius = 140; // px
 
-    texto.style.clipPath = `circle(40px at ${e.clientX}px ${e.clientY}px)`;
+  // usamos las mismas coordenadas en % para el clip-path del texto (porque #texto ocupa el viewport)
+  texto.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
+});
+
+// opcional: cuando el ratón salga de la ventana, ocultar la linterna
+document.addEventListener('mouseleave', () => {
+  texto.style.clipPath = 'circle(0px at 50% 50%)';
 });
