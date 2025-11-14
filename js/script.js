@@ -7,8 +7,8 @@ document.addEventListener("mousemove", (e) => {
     document.body.style.setProperty("--x", x + "%");
     document.body.style.setProperty("--y", y + "%");
 
-    // Recorta el texto con linterna pequeña
+    // Linterna en el centro del degradado, NO en el cursor
     const texto = document.getElementById("texto");
 
-    texto.style.clipPath = `circle(80px at ${e.clientX}px ${e.clientY}px)`;
+    texto.style.clipPath = `circle(40px at ${e.clientX}px ${e.clientY}px)`;
 });
