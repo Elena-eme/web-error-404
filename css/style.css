@@ -119,3 +119,77 @@ body {
         opacity: 0;
     }
 }
+
+/* Animación suave del degradado "bombeándose" */
+@keyframes gradient-pump {
+  0% {
+    background: radial-gradient(circle at 45% 40%,
+        #d81515,
+        #e99518,
+        #0c1a3d 80%
+    );
+  }
+  50% {
+    background: radial-gradient(circle at 60% 55%,
+        #d81515,
+        #e99518,
+        #0c1a3d 80%
+    );
+  }
+  100% {
+    background: radial-gradient(circle at 40% 60%,
+        #d81515,
+        #e99518,
+        #0c1a3d 80%
+    );
+  }
+}
+
+/* Para tablet y móvil */
+@media (max-width: 1024px) {
+
+  body {
+    /* quitamos transición reactiva al mouse */
+    transition: none;
+
+    /* degradado automático */
+    animation: gradient-pump 8s ease-in-out infinite;
+    
+    /* cursor normal */
+    cursor: auto;
+  }
+
+  #texto {
+    /* SIEMPRE visible */
+    clip-path: none !important;
+    transition: none;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+  }
+
+  #recargar {
+    /* SIEMPRE visible */
+    clip-path: none !important;
+    transition: none;
+  }
+
+  .boton-glass {
+    font-size: clamp(16px, 4vw, 20px);
+    padding: 12px 24px;
+  }
+
+  /* opcional: si quieres menos separación vertical */
+  .contenido {
+    gap: 16px;
+    padding: 0 20px;
+  }
+}
+
+/* Ajuste extra para móviles pequeños */
+@media (max-width: 480px) {
+  .boton-glass {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}

@@ -1,127 +1,73 @@
 const texto = document.getElementById('texto');
 const boton = document.getElementById('recargar');
 
-document.addEventListener('mousemove', (e) => {
-    // porcentajes para el gradiente
-    const xPercent = (e.clientX / window.innerWidth) * 100;
-    const yPercent = (e.clientY / window.innerHeight) * 100;
+/* Detecta si es “desktop real” (ratón + hover) */
+const desktopMode = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-    // actualizamos fondo dinámico
-    document.body.style.setProperty('--x', `${xPercent}%`);
-    document.body.style.setProperty('--y', `${yPercent}%`);
+if (desktopMode) {
+    // =====================
+    // MODO DESKTOP (igual que antes)
+    // =====================
 
-    // radio de la linterna
-    const radius = 140;
+    document.addEventListener('mousemove', (e) => {
+        const xPercent = (e.clientX / window.innerWidth) * 100;
+        const yPercent = (e.clientY / window.innerHeight) * 100;
 
-    // mostrar texto dentro de la linterna
-    texto.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
+        document.body.style.setProperty('--x', `${xPercent}%`);
+        document.body.style.setProperty('--y', `${yPercent}%`);
 
-    // mostrar botón dentro de la linterna
-    boton.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
-});
+        const radius = 140;
+        texto.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
+        boton.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
 
-// cuando el ratón sale de la pantalla → ocultar todo
-document.addEventListener('mouseleave', () => {
-    texto.style.clipPath = 'circle(0px at 50% 50%)';
-    boton.style.clipPath = 'circle(0px at 50% 50%)';
-});
+        // Partículas
+        const ahora = performance.now();
+        if (ahora - ultimaParticula > 20) {
+            crearParticula(e.clientX, e.clientY);
+            ultimaParticula = ahora;
+        }
+    });
 
-// CLICK → apagar linterna y ocultar texto/botón
-document.addEventListener("click", () => {
-    // fondo sólido
-    document.body.style.background = "#d41010ff";
+    document.addEventListener('mouseleave', () => {
+        texto.style.clipPath = 'circle(0px at 50% 50%)';
+        boton.style.clipPath = 'circle(0px at 50% 50%)';
+    });
 
-    // ocultamos texto y botón
-    texto.style.clipPath = "circle(0px at 50% 50%)";
-    boton.style.clipPath = "circle(0px at 50% 50%)";
-});
+    document.addEventListener("click", () => {
+        document.body.style.background = "#d41010ff";
+        texto.style.clipPath = "circle(0px at 50% 50%)";
+        boton.style.clipPath = "circle(0px at 50% 50%)";
+    });
 
-// BOTÓN DE RECARGA
-boton.addEventListener("click", (e) => {
-    e.stopPropagation(); // evita que se active el click que apaga la linterna
-    location.reload();
-});
+    let ultimaParticula = 0;
 
-let ultimaParticula = 0; // para no crear demasiadas
+    function crearParticula(x, y) {
+        const p = document.createElement('span');
+        p.className = 'particle';
 
-document.addEventListener('mousemove', (e) => {
-    // porcentajes para el gradiente
-    const xPercent = (e.clientX / window.innerWidth) * 100;
-    const yPercent = (e.clientY / window.innerHeight) * 100;
+        const size = 4 + Math.random() * 6;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
 
-    // actualizamos fondo dinámico
-    document.body.style.setProperty('--x', `${xPercent}%`);
-    document.body.style.setProperty('--y', `${yPercent}%`);
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
 
-    // radio de la linterna
-    const radius = 140;
+        const angulo = Math.random() * Math.PI * 2;
+        const distancia = 20 + Math.random() * 40;
+        const dx = Math.cos(angulo) * distancia;
+        const dy = Math.sin(angulo) * distancia;
 
-    // mostrar texto dentro de la linterna
-    texto.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
+        p.style.setProperty('--dx', dx + 'px');
+        p.style.setProperty('--dy', dy + 'px');
 
-    // mostrar botón dentro de la linterna
-    boton.style.clipPath = `circle(${radius}px at ${xPercent}% ${yPercent}%)`;
+        document.body.appendChild(p);
 
-    // ======= PARTÍCULAS DEL CURSOR =======
-    const ahora = performance.now();
-    if (ahora - ultimaParticula > 20) { // cada 20ms aprox
-        crearParticula(e.clientX, e.clientY);
-        ultimaParticula = ahora;
+        setTimeout(() => p.remove(), 700);
     }
-});
-
-// cuando el ratón sale de la pantalla → ocultar todo
-document.addEventListener('mouseleave', () => {
-    texto.style.clipPath = 'circle(0px at 50% 50%)';
-    boton.style.clipPath = 'circle(0px at 50% 50%)';
-});
-
-// CLICK → apagar linterna y ocultar texto/botón
-document.addEventListener("click", () => {
-    // fondo sólido
-    document.body.style.background = "#d41010ff";
-
-    // ocultamos texto y botón
-    texto.style.clipPath = "circle(0px at 50% 50%)";
-    boton.style.clipPath = "circle(0px at 50% 50%)";
-});
-
-// BOTÓN DE RECARGA
-boton.addEventListener("click", (e) => {
-    e.stopPropagation(); // evita que se active el click que apaga la linterna
-    location.reload();
-});
-
-// =====================
-// FUNCIÓN PARA PARTÍCULAS
-// =====================
-function crearParticula(x, y) {
-    const p = document.createElement('span');
-    p.className = 'particle';
-
-    // tamaño aleatorio
-    const size = 4 + Math.random() * 6;
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-
-    // posición inicial (en el cursor)
-    p.style.left = x + 'px';
-    p.style.top = y + 'px';
-
-    // dirección y distancia aleatorias
-    const angulo = Math.random() * Math.PI * 2;
-    const distancia = 20 + Math.random() * 40;
-    const dx = Math.cos(angulo) * distancia;
-    const dy = Math.sin(angulo) * distancia;
-
-    p.style.setProperty('--dx', dx + 'px');
-    p.style.setProperty('--dy', dy + 'px');
-
-    document.body.appendChild(p);
-
-    // eliminar la partícula cuando acabe la animación
-    setTimeout(() => {
-        p.remove();
-    }, 700);
 }
 
+/* Botón recargar funciona SIEMPRE (desktop + móvil/tablet) */
+boton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    location.reload();
+});
