@@ -21,8 +21,8 @@ body {
 
 #texto {
     font-size: 4rem;
-    font-family:Georgia, 'Times New Roman', Times, serif
-    font-weight: bold;
+    font-family: "Science Gothic", sans-serif;
+    
     color: white;
 
     clip-path: circle(0px at 50% 50%);
@@ -63,7 +63,7 @@ body {
 
 .boton-glass {
     display: inline-block;
-    padding: 14px 40px;
+    padding: 14px 30px;
 
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(20px) brightness(1.2);
@@ -75,10 +75,11 @@ body {
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 400;
     color: #c53120;
     cursor: pointer;
     transition: 0.2s ease;
+     font-family: "Science Gothic", sans-serif;
 }
 
 .boton-glass:hover {
