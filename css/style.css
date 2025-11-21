@@ -79,7 +79,7 @@ body {
     color: #c53120;
     cursor: pointer;
     transition: 0.2s ease;
-     font-family: "Science Gothic", sans-serif;
+    font-family: "Science Gothic", sans-serif;
 }
 
 .boton-glass:hover {
@@ -90,3 +90,27 @@ body {
     background: rgba(255, 255, 255, 0.18);
     transform: scale(0.98);
 }
+
+.particle {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
+    pointer-events: none;
+    mix-blend-mode: screen;
+    filter: blur(1px);
+
+    transform: translate(-50%, -50%);
+    animation: particle-move 700ms ease-out forwards;
+}
+
+@keyframes particle-move {
+    to {
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0);
+        opacity: 0;
+    }
+}
+
