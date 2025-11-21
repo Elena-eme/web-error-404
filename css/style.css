@@ -50,20 +50,8 @@ body {
 }
 
 #recargar {
-    padding: 12px 25px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    background: white;
-    color: #d81515;
-    cursor: pointer;
-    transition: 0.2s;
-
     position: relative;
     z-index: 2;
-
-    /* OCULTO IGUAL QUE EL TEXTO */
     clip-path: circle(0px at 50% 50%);
 }
 
@@ -72,3 +60,31 @@ body {
     transform: scale(1.08);
 }
 
+.boton-glass {
+    display: inline-block;
+    padding: 14px 40px;
+
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px) brightness(1.2);
+    -webkit-backdrop-filter: blur(20px) brightness(1.2);
+
+    border-radius: 17px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+
+    font-size: 20px;
+    font-weight: 700;
+    color: #c53120;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.boton-glass:hover {
+    background: rgba(255, 255, 255, 0.32);
+}
+
+.boton-glass:active {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(0.98);
+}
