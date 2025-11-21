@@ -20,7 +20,8 @@ body {
 }
 
 #texto {
-    font-size: 5rem;
+    font-size: 4rem;
+    font-family:Georgia, 'Times New Roman', Times, serif
     font-weight: bold;
     color: white;
 
